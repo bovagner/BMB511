@@ -1,0 +1,249 @@
+- Class: meta
+  Course: BMB511
+  Lesson: DNA sequence alignment
+  Author: Jesper Grud Skat Madsen
+  Type: Standard
+  Organization: Univeristy of Southern Denmark
+  Version: 2.4.5
+
+- Class: text
+  Output: Welcome to the class on aligning DNA sequences using R!
+  
+- Class: text
+  Output: There are different sites (repositories) containing R packages. The default one used by R is CRAN (https://cran.r-project.org/), which is where you install packages from using the install.packages() function. Another major repository is Bioconductor, which holds R packages for biological sciences mostly. To install packages from Bioconductor, you need the package called "BiocManager", which is on CRAN.
+  
+- Class: cmd_question
+  Output: Install the "BiocManager" package.
+  CorrectAnswer: install.packages("BiocManager")
+  AnswerTests: any_of_exprs('install.packages("BiocManager")')
+  Hint: Use the install.packages() function
+  
+- Class: cmd_question
+  Output: Now load the "BiocManager" library 
+  CorrectAnswer: library("BiocManager")
+  AnswerTests: any_of_exprs('library("BiocManager")', 'library(BiocManager)')
+  Hint: Use the library() function
+  
+- Class: text
+  Output: The "BiocManager" libary contains a function called install(), which allows you to install packages from Bioconductor.
+  
+- Class: cmd_question
+  Output: Read the help for the install() function from "BiocManager" package. Pay special attention to the 'ask' and 'update' arguments. 
+  CorrectAnswer: ?install
+  AnswerTests: any_of_exprs('?install', 'help(install)')
+  Hint: You can read help using either ? or the help() function.
+  
+- Class: text
+  Output: Updating packages can be bad. It can be bad because it might change your system by installing newer versions of packages you use and changing their functions or outputs.
+  
+- Class: cmd_question
+  Output: Install the "Biostrings" package using BiocManager. Set parameters so no packages will be updated. If you have already installed the package, write "alreadydone" into the console.
+  CorrectAnswer: install("Biostrings", update = FALSE)
+  AnswerTests: any_of_exprs('install("Biostrings", update = FALSE)', 'install("Biostrings", update = F)', '"alreadydone"')
+  Hint: Use the install() function
+
+- Class: text
+  Output: The "Biostrings" package contains functions for aligning biological sequences. In this lesson, we will explore this package and various aspects of sequence alignment.
+
+- Class: cmd_question
+  Output: Now load the "Biostrings" library 
+  CorrectAnswer: library("Biostrings")
+  AnswerTests: any_of_exprs('library("Biostrings")', 'library(Biostrings)')
+  Hint: Use the library() function
+  
+- Class: text
+  Output: First, we need to define the sequences that we want to compare. The "Biostrings" library has a function called DNAString() for that purpose.
+
+- Class: cmd_question
+  Output: Read the help for the DNAString function
+  CorrectAnswer: ?DNAString
+  AnswerTests: any_of_exprs('?DNAString', 'help(DNAString)')
+  Hint: You can read help using either ? or the help() function.
+  
+- Class: text
+  Output: Reading the help for the function reveals that a characterisitic for the function is that it can only hold a string based on the DNA alphabet. 
+  
+- Class: cmd_question
+  Output: List the letters of the DNA alphabet by writing DNA_ALPHABET into the console
+  CorrectAnswer: DNA_ALPHABET
+  AnswerTests: any_of_exprs('DNA_ALPHABET')
+  Hint: Just write DNA_ALPHABET into the console.
+  
+- Class: cmd_question
+  Output: Based on this output, answer question 2.5 in the Word document. Write "done" into the console when you want to proceed. 
+  CorrectAnswer: '"done"'
+  AnswerTests: any_of_exprs('"done"')
+  Hint: Just write "done"
+  
+- Class: text
+  Output: Now you have the package installed and an understanding of the DNA alphabet. Let's try a realistic example!
+  
+- Class: text
+  Output: Imagine that you have been running an experiment in the lab where you randomly delete or mutate a few single positions in a known sequence and test whether the mutated sequence can bind a transcription factor. You have found one that worked and sequenced it. We want to compare the mutated version to the reference sequence to find out which mutations are responsible for allowing transcription factor binding.
+
+- Class: cmd_question
+  Output: Now lets define a variable called reference as a DNAString object with the sequence;  GTCCATCTGTAGTAGATCGTCCATGACTGCGATACAAGTTACCTT
+  CorrectAnswer: reference <- DNAString("GTCCATCTGTAGTAGATCGTCCATGACTGCGATACAAGTTACCTT")
+  AnswerTests: any_of_exprs('reference <- DNAString("GTCCATCTGTAGTAGATCGTCCATGACTGCGATACAAGTTACCTT")', 'reference = DNAString("GTCCATCTGTAGTAGATCGTCCATGACTGCGATACAAGTTACCTT")')
+  Hint: Use either the '<-' or the '=' to define a variable. For example, variable_name <- DNAString("CGAT")
+  
+- Class: cmd_question
+  Output: And create another variable called variant as a DNAString object with the sequence; GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT
+  CorrectAnswer: variant <- DNAString("GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT")
+  AnswerTests: any_of_exprs('variant <- DNAString("GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT")', 'variant = DNAString("GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT")')
+  Hint: Use either the '<-' or the '=' to define a variable. For example, variable_name <- DNAString("CGAT")
+  
+- Class: cmd_question
+  Output: Inspect the reference sequence
+  CorrectAnswer: reference
+  AnswerTests: any_of_exprs('reference')
+  Hint: Enter the name of the variable into the console to see its contents.
+  
+- Class: cmd_question
+  Output: Next, inspect the variant sequence. 
+  CorrectAnswer: variant
+  AnswerTests: any_of_exprs('variant')
+  Hint: Enter the name of the variable into the console to see its contents.
+  
+- Class: cmd_question
+  Output: To compare the reference and the variant sequences, we need to define a substitution matrix. The 'Biostrings' packages has a function called nucleotideSubstitutionMatrix() for that purpose. Look at the help for the function. 
+  CorrectAnswer: ?nucleotideSubstitutionMatrix
+  AnswerTests: any_of_exprs('?nucleotideSubstitutionMatrix', 'help(nucleotideSubstitutionMatrix)')
+  Hint: You can read help using either ? or the help() function.
+  
+- Class: cmd_question
+  Output: Create a substitution matrix with a match score of 1 and mismatch penalty of -1 allowing only the base alphabet Store it in an object called scoring.
+  CorrectAnswer: scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = TRUE)
+  AnswerTests: any_of_exprs('scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = TRUE)', 'scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = T)', 'scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = T, type="DNA")', 'scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = TRUE, type="DNA")')
+  Hint: Use either the '<-' or the '=' to define a variable. For example, scoring <- nucleotideSubstitutionMatrix(match = 1). Consider the baseOnly argument.
+
+- Class: cmd_question
+  Output: Next, inspect the scoring matrix. 
+  CorrectAnswer: scoring
+  AnswerTests: any_of_exprs('scoring')
+  Hint: Enter the name of the variable into the console to see its contents.
+  
+- Class: cmd_question
+  Output: Now, we have everything we need to compare sequences. The 'Biostrings' packages has a function called pairwiseAlignment() for that purpose. Look at the help for the function. 
+  CorrectAnswer: ?pairwiseAlignment
+  AnswerTests: any_of_exprs('?pairwiseAlignment', 'help(pairwiseAlignment)')
+  Hint: You can read help using either ? or the help() function.
+
+- Class: cmd_question
+  Output: What is the name of the argument in the pairwiseAlignment() function determines which type of alignment is used?
+  CorrectAnswer: '"type"'
+  AnswerTests: any_of_exprs('"type"')
+  Hint: Write "type" into the console.
+
+- Class: text
+  Output: When comparing strings, we often need a subject and a pattern (or query). The subject is the reference sequence and the pattern (or query) is the sequence we want to match to the subject.
+
+- Class: cmd_question
+  Output: Perform pairwise alignment of the reference and variant sequence using the scoring matrix and local alignment while setting the arguments gapOpening = 2 and gapExtension = 2
+  CorrectAnswer: pairwiseAlignment(pattern = variant, subject = reference, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)
+  AnswerTests: any_of_exprs('pairwiseAlignment(pattern = variant, subject = reference, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
+  Hint: You should set the following arguments in the pairwiseAlignment() function; pattern, subject, type, substitutionMatrix, gapOpening, gapExtension.
+  
+- Class: cmd_question
+  Output: Now try the same but using global alignment. 
+  CorrectAnswer: pairwiseAlignment(pattern = variant, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)
+  AnswerTests: any_of_exprs('pairwiseAlignment(pattern = variant, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
+  Hint: You should change the type argument.
+
+- Class: cmd_question
+  Output: Based on these results, answer question 2.6 and 2.7 in the Word document. Write "done" into the console when you want to proceed. 
+  CorrectAnswer: '"done"'
+  AnswerTests: any_of_exprs('"done"')
+  Hint: Just write "done"
+
+- Class: text
+  Output: The variant you analyzed about was only the very first you succesfully generated. Once you got the method working, you created several variants that could bind the transcription factor, and you have sequenced all of them.
+
+- Class: cmd_question
+  Output: The full set of sequences you generated are stored in an object called all_variants. We can use the function DNAStringSet() to create an object that holds several DNA sequences. Create a DNAStringSet called variants containing all of the sequences.
+  CorrectAnswer: variants <- DNAStringSet(all_variants)
+  AnswerTests: any_of_exprs('variants <- DNAStringSet(all_variants)')
+  Hint: Use either the '<-' or the '=' to define a variable. For example, variants <- DNAStringSet()
+  
+- Class: cmd_question
+  Output: Now perform alignment between all the new variants and the reference using global alignment, the substitutionMatrix as well as gapOpening = 2 and gapExtension = 2 and save the results in an object called alignment
+  CorrectAnswer: alignment <- pairwiseAlignment(pattern = variants, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)
+  AnswerTests: any_of_exprs('alignment <- pairwiseAlignment(pattern = variants, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)', 'alignment = pairwiseAlignment(pattern = variants, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
+  Hint: You should set the following arguments in the pairwiseAlignment() function; pattern, subject, type, substitutionMatrix, gapOpening, gapExtension. Remember to store the result in an object called alignment
+
+- Class: cmd_question
+  Output: Inspect the aligned sequences of the patterns (the variants) using the alignedPattern() function from the "Biostrings"" package.
+  CorrectAnswer: alignedPattern(alignment)
+  AnswerTests: any_of_exprs('alignedPattern(alignment)')
+  Hint: You can look at the help for the alignedPattern() function.
+  
+- Class: cmd_question
+  Output: Based on these results, answer question 2.8 in the Word document. Write "done" into the console when you want to proceed. 
+  CorrectAnswer: '"done"'
+  AnswerTests: any_of_exprs('"done"')
+  Hint: Just write "done"
+
+- Class: text
+  Output: You showed you results to a senior researcher in your group, who got very excited! She said that the variant sequences look a lot like a part of the sequence of an enhancer in the species she studies, which she knows also binds the transcription factor. She asked you if you could verify that hypothesis.
+
+- Class: cmd_question
+  Output: Lets define a variable called enhancer as a DNAString object with the sequence of the enhancer which is GTCCTAGATACTAGAGTCGTCTCCTCTGGTCGTCTAGCGAGCGGTTCAAGTTACCTTGATAGACACAGATACAGTTTGAGATACATAGACACATAGAGTAGAGACACATGA
+  CorrectAnswer: enhancer <- DNAString("GTCCTAGATACTAGAGTCGTCTCCTCTGGTCGTCTAGCGAGCGGTTCAAGTTACCTTGATAGACACAGATACAGTTTGAGATACATAGACACATAGAGTAGAGACACATGA")
+  AnswerTests: any_of_exprs('enhancer <- DNAString("GTCCTAGATACTAGAGTCGTCTCCTCTGGTCGTCTAGCGAGCGGTTCAAGTTACCTTGATAGACACAGATACAGTTTGAGATACATAGACACATAGAGTAGAGACACATGA")', 'enhancer = DNAString("GTCCTAGATACTAGAGTCGTCTCCTCTGGTCGTCTAGCGAGCGGTTCAAGTTACCTTGATAGACACAGATACAGTTTGAGATACATAGACACATAGAGTAGAGACACATGA")')
+  Hint: Use either the '<-' or the '=' to define a variable. For example, variable_name <- DNAString("CGAT")
+
+- Class: cmd_question
+  Output: Perform pairwise alignment of the enhancer and variant sequence using the scoring matrix and local alignment while setting the arguments gapOpening = 2 and gapExtension = 2
+  CorrectAnswer: pairwiseAlignment(pattern = variant, subject = enhancer, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)
+  AnswerTests: any_of_exprs('pairwiseAlignment(pattern = variant, subject = enhancer, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
+  Hint: Remember to use variant for the pattern, not variants! You should set the following arguments in the pairwiseAlignment() function; pattern, subject, type, substitutionMatrix, gapOpening, gapExtension. 
+  
+- Class: cmd_question
+  Output: Now try the same but using global alignment. 
+  CorrectAnswer: pairwiseAlignment(pattern = variant, subject = enhancer, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)
+  AnswerTests: any_of_exprs('pairwiseAlignment(pattern = variant, subject = enhancer, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
+  Hint: You should change the type argument.
+  
+- Class: cmd_question
+  Output: Based on the results of the local and the global alignment, answer question 2.9 in the Word document. Write "done" into the console when you want to proceed. 
+  CorrectAnswer: '"done"'
+  AnswerTests: any_of_exprs('"done"')
+  Hint: Just write "done"
+
+- Class: text
+  Output: You found a function online that randomly shuffles the sequence of the enhancer and aligns the random sequence to the variant producing a histogram of random scores. The title has the real score.
+  
+- Class: figure
+  Output: Inspect the histogram. You may need to change to the plot tab in the lower right window.
+  Figure: draw_histogram.R
+  FigureType: new
+
+- Class: cmd_question
+  Output: Based on these results, answer question 2.10 in the Word document. Write "done" into the console when you want to proceed. 
+  CorrectAnswer: '"done"'
+  AnswerTests: any_of_exprs('"done"')
+  Hint: Just write "done"
+  
+- Class: text
+  Output: Good job! You have completed the DNA alignment using R. The purpose of this lesson was to make you more familiar with both R and DNA sequence alignment. In real life, we mostly use online tools for sequence alignment instead of R. You will learn more about that in the next lesson.
+
+- Class: text
+  Output: We are exposing you to R so you can learn how we work with bioinformatics, but the exam will not require you to code in R. Instead, the regular exam is multiple choice questions on itsLearning The next few questions are examples of exam questions for DNA alignment.
+  
+- Class: mult_question
+  Output: In Illumina sequencing, the base A is linked to a blue color, C to a green color, T to a red color and G to a yellow color. The machine detects a green signal. What is the correct basepair in the fragment you are sequencing?
+  AnswerChoices: A;C;G;T
+  CorrectAnswer: T
+  AnswerTests: omnitest(correctVal='T')
+  
+- Class: mult_question
+  Output: Which of the following algorithms can do local alignment of sequences?
+  AnswerChoices: Smith-Waterman;Needleman-Wunsch;Euclid’s algorithm;Kruskal’s algorithm
+  CorrectAnswer: Smith-Waterman
+  AnswerTests: omnitest(correctVal='Smith-Waterman')
+  
+- Class: mult_question
+  Output: What type of path should you find in a de Brujin graph to correctly assemble a sequence?
+  AnswerChoices: Pythagorian path;Eulerian path;Euclidean path;Newtonian path
+  CorrectAnswer: Eulerian path
+  AnswerTests: omnitest(correctVal='Eulerian path')
