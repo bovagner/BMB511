@@ -13,14 +13,26 @@ For more information regarding swirl, visit the
 
 First make sure you have `swirl` installed:
  
- ```
+```
 install.packages("swirl")
 ```
 
-Then to install this course and get started simply run:
+Then load the installed package:
+
+```
+library("swirl")
+```
+
+To install this course and get started simply run:
 
 ```
 install_course_github("madsen-lab", "BMB511")
+```
+
+To get started with the materials, run:
+
+```
+swirl()
 ```
 
 ## Overview
