@@ -11,6 +11,7 @@
       # can be used for for the purpose, but it also re-evaluates the
       # expression which the user entered, so care must be taken.
 
-test_counts <- function() {
-  
+test_counts <- function(x) {
+  data <- read.delim(paste(.get_course_path(), "/BMB511/RNA_seq/RNAseq_counts_GSE135092.txt", sep=""), sep=" ")
+  return(identical(data, x))
 }
