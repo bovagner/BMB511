@@ -1,0 +1,58 @@
+- Class: meta
+  Course: BMB511
+  Lesson: RNA sequencing
+  Author: Jesper Grud Skat Madsen
+  Type: Standard
+  Organization: Univeristy of Southern Denmark
+  Version: 2.4.5
+  
+- Class: text
+  Output: Welcome to the class on analyzing RNA-seq using R!
+  
+- Class: text
+  Output: When you started up this lesson, the packages you require were installed in the background.
+
+- Class: cmd_question
+  Output: Even though you wont need it, let us just remember the command for installing packages from CRAN. Read the help for the install.packages function.
+  CorrectAnswer: ?install.packages
+  AnswerTests: any_of_exprs('?install.packages', 'help(install.packages)')
+  Hint: You can read help using either ? or the help() function.
+  
+- Class: text
+  Output: Great! Let's get started by importing the packages.
+  
+- Class: cmd_question
+  Output: The DESeq2 library contains functions to normalize and model RNA-sequencing datasets. Let's load the library.
+  CorrectAnswer: library(DESeq2)
+  AnswerTests: any_of_exprs('library(DESeq2)', 'library("DESeq2")')
+  Hint: Use the library() function to load a library
+  
+- Class: cmd_question
+  Output: The grex library contains functions convert between different types of gene identifiers. Let's load the library.
+  CorrectAnswer: library(grex)
+  AnswerTests: any_of_exprs('library(grex)', 'library("grex")')
+  Hint: Use the library() function to load a library
+  
+- Class: cmd_question
+  Output: The enrichR library contains functions to perform pathway enrichment analysis. Let's load the library.
+  CorrectAnswer: library(enrichR)
+  AnswerTests: any_of_exprs('library(enrichR)', 'library("enrichR")')
+  Hint: Use the library() function to load a library
+  
+- Class: cmd_question
+  Output: The ComplexHeatmap library contains functions to plot heatmaps. Let's load the library.
+  CorrectAnswer: library(ComplexHeatmap)
+  AnswerTests: any_of_exprs('library(ComplexHeatmap)', 'library("ComplexHeatmap")')
+  Hint: Use the library() function to load a library
+
+- Class: text
+  Output: Now that all of the packages are loaded, it is time to load the data and metadata.
+  
+- Class: text
+  Output: Go to itsLearning and download the “RNAseq_counts_GSE135092.txt” and “RNAseq_metadata_GSE135092.txt” files. If you are using UCloud, upload the files to your directory.
+  
+- Class: cmd_question
+  Output: Use the read.delim() function to read the “RNAseq_counts_GSE135092.txt” file into an object called counts.
+  CorrectAnswer: counts <- read.delim(.get_course_path())
+  AnswerTests: test_counts();expr_creates_var('counts')
+  Hint: Use the read.delim() function to read txt files.

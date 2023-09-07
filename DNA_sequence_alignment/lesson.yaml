@@ -37,7 +37,7 @@
   Output: Updating packages can be bad. It can be bad because it might change your system by installing newer versions of packages you use and changing their functions or outputs.
   
 - Class: cmd_question
-  Output: Install the "Biostrings" package using BiocManager. Set parameters so no packages will be updated. If you have already installed the package, write "alreadydone" into the console.
+  Output: Install the "Biostrings" package using BiocManager. Set parameters so no packages will be updated. If you have already installed the package, write "alreadydone" into the console. If you dont set update to FALSE, R will likely get study and you need to restart the session under the 'Session' tab in the top of RStudio.
   CorrectAnswer: install("Biostrings", update = FALSE)
   AnswerTests: any_of_exprs('install("Biostrings", update = FALSE)', 'install("Biostrings", update = F)', '"alreadydone"')
   Hint: Use the install() function
