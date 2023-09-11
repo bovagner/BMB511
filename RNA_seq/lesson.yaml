@@ -49,10 +49,127 @@
   Output: Now that all of the packages are loaded, it is time to load the data and metadata.
   
 - Class: text
-  Output: Go to itsLearning and download the “RNAseq_counts_GSE135092.txt” and “RNAseq_metadata_GSE135092.txt” files. If you are using UCloud, upload the files to your directory.
+  Output: We will be analyzing data from a paper called "Integration of eQTL and a Single-Cell Atlas in the Human Eye Identifies Causal Genes for Age-Related Macular Degeneration" by Orozco et al. published in 2020 in Cell Reports. 
+  
+- Class: text
+  Output: Find the paper online and look into the STAR Methods section, and answer questions 5.7 to 5.10
+  
+- Class: text
+  Output: Go to itsLearning and download the RNAseq_counts.txt file and the RNAseq_metadata.txt file. If you are using UCloud, upload the files to your directory.
   
 - Class: cmd_question
-  Output: Use the read.delim() function to read the “RNAseq_counts_GSE135092.txt” file into an object called counts.
+  Output: Use the read.delim() function to read the RNAseq_counts.txt file into an object called counts.
   CorrectAnswer: counts <- read.delim(.get_course_path())
   AnswerTests: test_counts();expr_creates_var('counts')
-  Hint: Use the read.delim() function to read txt files.
+  Hint: Use the read.delim() function to read txt files. Remember to name the object counts.
+
+- Class: cmd_question
+  Output: Use the read.delim() function to read the RNAseq_metadata.txt file into an object called metadata.
+  CorrectAnswer: counts <- read.delim(.get_course_path())
+  AnswerTests: test_counts();expr_creates_var('metadata')
+  Hint: Use the read.delim() function to read txt files. Remember to name the object metadata.
+  
+- Class: cmd_question
+  Output: We start out by inspecting the metadata. Use the head() function to show the first few lines
+  CorrectAnswer: head(metadata)
+  AnswerTests: any_of_exprs('head(metadata)')
+  Hint: When you reference objects you should not use quotes.
+  
+- Class: text
+  Output: The metadata contains 3 columns: The sample name, the tissue and the condition. Here, we only analyze data from the retina tissue. 
+  
+- Class: cmd_question
+  Output: Use the table() function to count how how samples there are for each condition. Record the results in question 5.11
+  CorrectAnswer: head(metadata)
+  AnswerTests: any_of_exprs('table(metadata$condition)', 'table(metadata[,3])')
+  Hint: Remember to indicate which column you want to use for making a table, e.g. table(metadata$Condition). Use the column with the combined tissue and condition labels.
+  
+- Class: cmd_question
+  Output: Next let us check out the counts. Use the head() function to show the first few entries of the counts object.
+  CorrectAnswer: head(counts)
+  AnswerTests: any_of_exprs('head(counts)')
+  Hint: When you reference objects you should not use quotes.
+  
+- Class: text
+  Output: The column names in the counts object is the sample names and the row names are the gene identifiers. Use Google to look up the name of the first gene and answer question 5.12.
+  
+- Class: cmd_question
+  Output: We can use the dim() function to get the dimensions of an object. Get the dimensions of the counts object and answer question 5.13.
+  CorrectAnswer: dim(counts)
+  AnswerTests: any_of_exprs('dim(counts)')
+  Hint: When you reference objects you should not use quotes.
+  
+- Class: cmd_question
+  Output: Before we start analyzing the data using DESeq2, we should check that the metadata and counts are matched. Use the identical() function to check that the order of the samples (in the column names) in the counts objects, and the order (in the first column) in the metadata is the same.
+  CorrectAnswer: identical(colnames(counts), metadata$sample)
+  AnswerTests: any_of_exprs('identical(colnames(counts), metadata$sample)','identical(colnames(counts), metadata[,1])'.'identical(metadata$sample, colnames(counts))','identical(metadata[,1], colnames(counts))')
+  Hint: The identical() function checks if X and Y are identical if you write identical(X, Y). Replace X and Y with the data you want to check.
+
+- Class: text
+  Output: The first step in analyzing RNA-seq is to create a design matrix. This uses a formula, which in R is created using the ~ sign, for example  ~ a which create a formula with a independent variable a. 
+
+- Class: text
+  Output: To create a design matrix, we use the function model.matrix() and specify a formula.
+
+- Class: cmd_question
+  Output: Create an object called design containing a design matrix using the condition column from the metadata as the independent variable. Use the model.matrix() function.
+  CorrectAnswer: design <- model.matrix(~ metadata$condition)
+  AnswerTests: any_of_exprs('design <- model.matrix(~ metadata$condition)','design = model.matrix(~ metadata$condition)','design <- model.matrix(~ condition, data = metadata)','design = model.matrix(~ condition, data = metadata)')
+  Hint: Remember to create an object called design with the results. Nothing goes to the left of the tilde, while on the right you should include in the independent variable.
+  
+- Class: cmd_question
+  Output: We are now ready to create a DESeq object. Let's start out by reading the help for the DESeqDataSetFromMatrix function.
+  CorrectAnswer: ?DESeqDataSetFromMatrix
+  AnswerTests: any_of_exprs('?DESeqDataSetFromMatrix', 'help(DESeqDataSetFromMatrix)')
+  Hint: You can read help using either ? or the help() function.
+
+- Class: text
+  Output: From the help you can see there are three things you need to specify, the countData, the colData (= metadata) and the design.
+
+- Class: cmd_question
+  Output: Create a DESeq object called dds using the DESeqDataSetFromMatrix() function specifying the countData, colData and design.
+  CorrectAnswer: dds <- DESeqDataSetFromMatrix(countData = counts, colData = metadata, design = design)
+  AnswerTests: test_dds();expr_creates_var('dds')
+  Hint: Remember to specifiy all three objects and in the right order. Do not specify anything else.
+
+- Class: text
+  Output: Now we have a DESeq object, we can use DESeq to normalize the data and fit the negative binomial distribution to each gene.gene
+  
+- Class: cmd_question
+  Output: Use the DESeq() function on the dds object and create a new object called dds. 
+  CorrectAnswer: dds <- DESeq(dds)
+  AnswerTests: any_of_exprs('dds <- DESeq(dds)','dds = DESeq(dds)')
+  Hint: The new object should also be named dds. It will overwrite the old object.
+
+- Class: text
+  Output: Lets check out if normalization worked properly. 
+  
+- Class: text
+  Output: Counts can be extracted from a DEseq object using the counts function. This function has a parameter called normalized, which should be set to FALSE or TRUE depending on if you want to get raw or normalized counts.
+  
+- Class: cmd_question
+  Output: Use the counts() function to get the raw counts from the dds object. Save them into a new object called raw_counts.
+  CorrectAnswer: raw_counts <- counts(dds, normalized = FALSE)
+  AnswerTests: any_of_exprs('raw_counts <- counts(dds, normalized = FALSE)','raw_counts = counts(dds, normalized = FALSE)')
+  Hint: Remember to specify the dds object and set normalized = FALSE
+  
+- Class: cmd_question
+  Output: Use the counts() function to get the normalized counts from the dds object. Save them into a new object called normalized_counts.
+  CorrectAnswer: normalized_counts <- counts(dds, normalized = TRUE)
+  AnswerTests: any_of_exprs('normalized_counts <- counts(dds, normalized = TRUE)','normalized_counts = counts(dds, normalized = TRUE)')
+  Hint: Remember to specify the dds object and set normalized = TRUE
+  
+- Class: cmd_question
+  Output: Create a boxplot of raw counts using the boxplot() function.
+  CorrectAnswer: boxplot(raw_counts)
+  AnswerTests: any_of_exprs('boxplot(raw_counts)')
+  Hint: Writing boxplot(X) creates a boxplot showing the X.
+  
+- Class: cmd_question
+  Output: Create a boxplot of normalised counts using the boxplot() function and answer question 5.14
+  CorrectAnswer: boxplot(normalized_counts)
+  AnswerTests: any_of_exprs('boxplot(normalized_counts)')
+  Hint: Writing boxplot(X) creates a boxplot showing the X.
+  
+- Class: text
+  Output: Great! It looks like normalized worked. Now let's check for outliers using PCA. 

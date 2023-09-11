@@ -1,9 +1,9 @@
 # Deattach loaded packages
-if (any(loadedNamespaces() %in% "BiocManager")) { detach("package:BiocManager", unload = TRUE) } 
-if (any(loadedNamespaces() %in% "ComplexHeatmap")) { detach("package:ComplexHeatmap", unload = TRUE) }
-if (any(loadedNamespaces() %in% "grex")) { detach("package:grex", unload = TRUE) } 
-if (any(loadedNamespaces() %in% "enrichR")) { detach("package:enrichR", unload = TRUE) }
-if (any(loadedNamespaces() %in% "DESeq2")) { detach("package:DESeq2", unload = TRUE) }
+if (any(grepl("BiocManager", search()))) { detach("package:BiocManager", unload = TRUE) } 
+if (any(grepl("ComplexHeatmap", search()))) { detach("package:ComplexHeatmap", unload = TRUE) }
+if (any(grepl("grex", search()))) { detach("package:grex", unload = TRUE) } 
+if (any(grepl("enrichR", search()))) { detach("package:enrichR", unload = TRUE) }
+if (any(grepl("DESeq2", search()))) { detach("package:DESeq2", unload = TRUE) }
 
 # Install required packages
 if (!is.element("BiocManager", installed.packages())) { out <- capture.output(suppressMessages(install.packages("BiocManager", quiet = TRUE))) }
