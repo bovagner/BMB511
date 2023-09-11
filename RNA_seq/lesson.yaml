@@ -39,12 +39,6 @@
   AnswerTests: any_of_exprs('library(enrichR)', 'library("enrichR")')
   Hint: Use the library() function to load a library
   
-- Class: cmd_question
-  Output: The ComplexHeatmap library contains functions to plot heatmaps. Let's load the library.
-  CorrectAnswer: library(ComplexHeatmap)
-  AnswerTests: any_of_exprs('library(ComplexHeatmap)', 'library("ComplexHeatmap")')
-  Hint: Use the library() function to load a library
-
 - Class: text
   Output: Now that all of the packages are loaded, it is time to load the data and metadata.
   
@@ -150,26 +144,176 @@
 - Class: cmd_question
   Output: Use the counts() function to get the raw counts from the dds object. Save them into a new object called raw_counts.
   CorrectAnswer: raw_counts <- counts(dds, normalized = FALSE)
-  AnswerTests: any_of_exprs('raw_counts <- counts(dds, normalized = FALSE)','raw_counts = counts(dds, normalized = FALSE)')
+  AnswerTests: any_of_exprs('raw_counts <- counts(dds, normalized = F)','raw_counts = counts(dds, normalized = FALSE)')
   Hint: Remember to specify the dds object and set normalized = FALSE
   
 - Class: cmd_question
   Output: Use the counts() function to get the normalized counts from the dds object. Save them into a new object called normalized_counts.
   CorrectAnswer: normalized_counts <- counts(dds, normalized = TRUE)
-  AnswerTests: any_of_exprs('normalized_counts <- counts(dds, normalized = TRUE)','normalized_counts = counts(dds, normalized = TRUE)')
+  AnswerTests: any_of_exprs('normalized_counts <- counts(dds, normalized = T)','normalized_counts = counts(dds, normalized = TRUE)')
   Hint: Remember to specify the dds object and set normalized = TRUE
   
 - Class: cmd_question
-  Output: Create a boxplot of raw counts using the boxplot() function.
-  CorrectAnswer: boxplot(raw_counts)
-  AnswerTests: any_of_exprs('boxplot(raw_counts)')
-  Hint: Writing boxplot(X) creates a boxplot showing the X.
+  Output: Let's look at the first 5 genes for the raw counts using squared brackets, as such raw_counts[1:5,]
+  CorrectAnswer: raw_counts[1:5,]
+  AnswerTests: any_of_exprs('raw_counts[1:5,]')
+  Hint: Writing raw_counts[1:5,] into the console
   
 - Class: cmd_question
-  Output: Create a boxplot of normalised counts using the boxplot() function and answer question 5.14
-  CorrectAnswer: boxplot(normalized_counts)
-  AnswerTests: any_of_exprs('boxplot(normalized_counts)')
-  Hint: Writing boxplot(X) creates a boxplot showing the X.
+  Output: Create a boxplot of the first 100 genes from raw counts using the boxplot() function.
+  CorrectAnswer: boxplot(raw_counts[1:100,])
+  AnswerTests: any_of_exprs('boxplot(raw_counts[1:100,])')
+  Hint: Writing boxplot(X) creates a boxplot showing the X. Remember to use square brackets to show the first 100 genes. 
+  
+- Class: cmd_question
+  Output: Create a boxplot of normalised counts using the boxplot() function for the first 100 genes and answer question 5.14
+  CorrectAnswer: boxplot(normalized_counts[1:100,])
+  AnswerTests: any_of_exprs('boxplot(normalized_counts[1:100,])')
+  Hint: Writing boxplot(X) creates a boxplot showing the X. Remember to use square brackets to show the first 100 genes. 
   
 - Class: text
-  Output: Great! It looks like normalized worked. Now let's check for outliers using PCA. 
+  Output: Great! It looks like normalized worked. Now let's check for outliers using PCA.
+  
+- Class: text
+  Output: To calculate PCA plots, we need to get variance stabilized counts (i.e, a type of normalized counts).
+
+- Class: cmd_question
+  Output: Let's start out by reading the help for the varianceStabilizingTransformation () function from DESeq2
+  CorrectAnswer: ?varianceStabilizingTransformation 
+  AnswerTests: any_of_exprs('?varianceStabilizingTransformation', 'help(varianceStabilizingTransformation)')
+  Hint: You can read help using either ? or the help() function.
+  
+- Class: cmd_question
+  Output: Run the varianceStabilizingTransformation() on your DESeq object and create an object called vst seting the blind argument appropriately for quality assurance. 
+  CorrectAnswer: vst <- varianceStabilizingTransformation(dds, blind = TRUE)
+  AnswerTests: any_of_exprs('vst <- varianceStabilizingTransformation(dds, blind = TRUE)','vst = varianceStabilizingTransformation(dds, blind = TRUE)','vst <- varianceStabilizingTransformation(dds, blind = T)','vst = varianceStabilizingTransformation(dds, blind = T)')
+  Hint: The object you generate should be called vst and blind should be set to TRUE
+  
+- Class: cmd_question
+  Output: DESeq2 has a function to automatically create PCA plots. Lets read the help for the plotPCA() function.
+  CorrectAnswer: ?plotPCA 
+  AnswerTests: any_of_exprs('?plotPCA', 'help(plotPCA)')
+  Hint: You can read help using either ? or the help() function. 
+  
+- Class: cmd_question
+  Output: Run the plotPCA() function on the vst object on the top 5000 genes and answer question 5.15
+  CorrectAnswer: plotPCA(vst, ntop = 5000)
+  AnswerTests: any_of_exprs('plotPCA(vst, ntop = 5000)')
+  Hint: Run the plotPCA() function without returning the results to an object. Remember to set the ntop argument.
+  
+- Class: text
+  Output: Awesome! Now we are ready to perform differential expression testing between AMD and control samples.
+  
+- Class: cmd_question
+  Output: DESeq2 has a function to automatically run differential expression. Lets read the help for the results() function.
+  CorrectAnswer: ?results 
+  AnswerTests: any_of_exprs('?results', 'help(results)')
+  Hint: You can read help using either ? or the help() function.
+
+- Class: cmd_question
+  Output: Run the results() function on the dds object and save the output to an object named res
+  CorrectAnswer: res <- results(dds) 
+  AnswerTests: any_of_exprs('res <- results(dds) ', 'res = results(dds)')
+  Hint: The object you generate should be called res and no arguments other than specifying dds should be set.
+  
+- Class: text
+  Output: A classical way to evaluate the results from differential expression is the MA-plot.
+  
+- Class: cmd_question
+  Output: Run the plotMA() function on the res object and answer question 5.16
+  CorrectAnswer: plotMA(res)
+  AnswerTests: any_of_exprs('plotMA(res)')
+  Hint: Run the plotMA() function without returning the results to an object.
+  
+- Class: text
+  Output: To interpret the results, it is often useful to use pathway analysis. Let's start by defining up and down regulated genes.
+  
+- Class: text
+  Output: For that, we need to subset the results. This is done using the subset() function.
+  
+- Class: cmd_question
+  Output: Create an object called down using the follow code; down <- subset(res, padj <= 0.05 & res$log2FoldChange < 0)
+  CorrectAnswer: down <- subset(res, padj <= 0.05 & res$log2FoldChange < 0)
+  AnswerTests: any_of_exprs('down <- subset(res, padj <= 0.05 & res$log2FoldChange < 0)')
+  Hint: Write the code from the help.
+  
+- Class: cmd_question
+  Output: Now change one parameter in the code above and create an object called up which holds upregulated genes.
+  CorrectAnswer: up <- subset(res, padj <= 0.05 & res$log2FoldChange > 0)
+  AnswerTests: any_of_exprs('up <- subset(res, padj <= 0.05 & res$log2FoldChange > 0)','up <- subset(res, padj <= 0.05 & res$log2FoldChange >= 0)','up = subset(res, padj <= 0.05 & res$log2FoldChange > 0)','up = subset(res, padj <= 0.05 & res$log2FoldChange >= 0)')
+  Hint: The upregulated genes will have a positive log2FoldChange instead of a negative log2FoldChange
+  
+- Class: cmd_question
+  Output: Look at the first few lines of the up object using the head() function
+  CorrectAnswer: head(up)
+  AnswerTests: any_of_exprs('head(up)')
+  Hint: Write head(X) where X is  the object you want to inspect.
+  
+- Class: text
+  Output: The gene identifies are stored in the rownames in the object. Lets extract them!
+  
+- Class: cmd_question
+  Output: Overwrite the down object to contain only the rownames from the down object. Use the rownames() function
+  CorrectAnswer: down <- rownames(down)
+  AnswerTests: any_of_exprs('down <- rownames(down)', 'down = rownames(down)')
+  Hint: Write the following code; down <- rownames(down)
+
+- Class: cmd_question
+  Output: Let us do the same for the up object.
+  CorrectAnswer: up <- rownames(up)
+  AnswerTests: any_of_exprs('up <- rownames(up)', 'up = rownames(up)')
+  Hint: Look at how it was done for the downregulated genes and adjust the code.
+
+- Class: text
+  Output: The gene identifiers used are from Ensembl and they are impossible to read. Let us use the grex package to convert to HGNC symbols, which are easier to read.
+
+- Class: cmd_question
+  Output: Lets read the help for the grex() function.
+  CorrectAnswer: ?grex 
+  AnswerTests: any_of_exprs('?grex', 'help(grex)')
+  Hint: You can read help using either ? or the help() function.
+
+- Class: cmd_question
+  Output: Convert the upregulated genes to HGNC Symbols writing the code; up <- grex(up)$hgnc_symbol 
+  CorrectAnswer: up <- grex(up)$hgnc_symbol 
+  AnswerTests: any_of_exprs('up <- grex(up)$hgnc_symbol','up = grex(up)$hgnc_symbol')
+  Hint: Write the following code; up <- grex(up)$hgnc_symbol
+  
+- Class: cmd_question
+  Output: Now convert the downregulated genes as well where you overwrite the down object with the results.
+  CorrectAnswer: down <- grex(down)$hgnc_symbol 
+  AnswerTests: any_of_exprs('down <- grex(down)$hgnc_symbol', 'down <- grex(down)$hgnc_symbol')
+  Hint: Look at how it was done for the upregulated genes and adjust the code.
+  
+- Class: cmd_question
+  Output: Pathway enrichment can be done using the enrichr() function from the enrichR package. Look at the help for the enrichr() function.
+  CorrectAnswer: ?enrichr 
+  AnswerTests: any_of_exprs('?enrichr', 'help(enrichr)')
+  Hint: You can read help using either ? or the help() function.
+  
+- Class: text
+  Output: Go the the website listing databases for enrichR and navigate to the "Libraries" pane in the top. Find the newest version of WikiPathways for humans. 
+  
+- Class: cmd_question
+  Output: Perform pathway enrichment using the newest WikiPathways for humans and the upregulated genes, save the results in an object called up_pathways
+  CorrectAnswer: up_pathways <- enrichr(up, databases = "WikiPathway_2021_Human")
+  AnswerTests: any_of_exprs('up_pathways <- enrichr(genes = up, databases = "WikiPathway_2021_Human")', 'up_pathways = enrichr(genes = up, databases = "WikiPathway_2021_Human")', 'up_pathways <- enrichr(up, databases = "WikiPathway_2021_Human")', 'up_pathways = enrichr(up, databases = "WikiPathway_2021_Human")', 'up_pathways <- enrichr(genes = up, "WikiPathway_2021_Human")', 'up_pathways = enrichr(genes = up, "WikiPathway_2021_Human")', 'up_pathways <- enrichr(up, "WikiPathway_2021_Human")', 'up_pathways = enrichr(up, "WikiPathway_2021_Human")')
+  Hint: You need to set two arguments for the enrichr function. Genes which should be the upregulated genes and databases which should be the newest WikiPathways database for humans in quotes.
+
+- Class: cmd_question
+  Output: Do the same for downregulated genes and save the results in an object called down_pathways
+  CorrectAnswer: down_pathways <- enrichr(down, databases = "WikiPathway_2021_Human")
+  AnswerTests: any_of_exprs('down_pathways <- enrichr(genes = down, databases = "WikiPathway_2021_Human")', 'down_pathways = enrichr(genes = down, databases = "WikiPathway_2021_Human")', 'down_pathways <- enrichr(down, databases = "WikiPathway_2021_Human")', 'down_pathways = enrichr(down, databases = "WikiPathway_2021_Human")', 'down_pathways <- enrichr(genes = down, "WikiPathway_2021_Human")', 'down_pathways = enrichr(genes = down, "WikiPathway_2021_Human")', 'down_pathways <- enrichr(down, "WikiPathway_2021_Human")', 'down_pathways = enrichr(down, "WikiPathway_2021_Human")')
+  Hint: You need to set two arguments for the enrichr function. Genes which should be the upregulated genes and databases which should be the newest WikiPathways database for humans in quotes.
+
+- Class: cmd_question
+  Output: The results from enrichr is in a list. Lets inspect the head of the first entry in the list for upregulated pathways using; head(up_pathways[[1]])
+  CorrectAnswer: head(up_pathways[[1]])
+  AnswerTests: any_of_exprs('head(up_pathways[[1]])')
+  Hint: Write the code as instruct in the question into the console
+  
+- Class: cmd_question
+  Output: Now inspect the results from downregulation using the head() function too and answer question 5.17
+  CorrectAnswer: head(down_pathways[[1]])
+  AnswerTests: any_of_exprs('head(down_pathways[[1]])')
+  Hint: Look at how it was done for the upregulated genes and adjust the code.

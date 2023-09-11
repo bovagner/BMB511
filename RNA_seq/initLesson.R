@@ -11,7 +11,6 @@ if (!is.element("BiocManager", installed.packages())) { out <- capture.output(su
 if (!is.element("grex", installed.packages()))  { out <- capture.output(suppressMessages(install.packages("grex", quiet = TRUE))) }
 if (!is.element("enrichR", installed.packages()))  { out <- capture.output(suppressMessages(install.packages("enrichR", quiet = TRUE))) }
 if (!is.element("DESeq2", installed.packages()))  { out <- capture.output(suppressMessages(BiocManager::install("DESeq2", update = FALSE, ask = FALSE, quiet = TRUE, verbose = FALSE))) }
-if (!is.element("ComplexHeatmap", installed.packages()))  { out <- capture.output(suppressMessages(BiocManager::install("ComplexHeatmap", update = FALSE, ask = FALSE, quiet = TRUE, verbose = FALSE))) }
 
 # Cleanup if necessary
 if (exists("out")) { rm(out) }
