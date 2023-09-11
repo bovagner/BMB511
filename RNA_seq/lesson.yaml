@@ -59,13 +59,13 @@
   
 - Class: cmd_question
   Output: Use the read.delim() function to read the RNAseq_counts.txt file into an object called counts.
-  CorrectAnswer: counts <- read.delim(.get_course_path())
+  CorrectAnswer: counts <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_counts.txt", sep=""))
   AnswerTests: test_counts();expr_creates_var('counts')
   Hint: Use the read.delim() function to read txt files. Remember to name the object counts.
 
 - Class: cmd_question
   Output: Use the read.delim() function to read the RNAseq_metadata.txt file into an object called metadata.
-  CorrectAnswer: metadata <- read.delim(.get_course_path())
+  CorrectAnswer: metadata <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_metadata.txt", sep=""))
   AnswerTests: test_metadata();expr_creates_var('metadata')
   Hint: Use the read.delim() function to read txt files. Remember to name the object metadata.
   
