@@ -26,5 +26,6 @@ test_dds <- function(x) {
   metadata_corr <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_metadata.txt", sep=""))
   design_corr <- model.matrix(~ metadata_corr$condition)
   dds_correct <- DESeqDataSetFromMatrix(countData = counts_corr, colData = metadata_corr, design = design_corr)
-  return(identical(dds, dds_correct))
+  return(all(c(identical(dds_correct@design[,1],dds@design[,1]),identical(dds_correct@design[,2],dds@design[,2]), identical(dds@colData, dds_correct@colData), identical(dds@assays@data$counts, dds_correct@assays@data$counts))))
 }
+
