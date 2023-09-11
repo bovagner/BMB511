@@ -11,20 +11,20 @@
       # can be used for for the purpose, but it also re-evaluates the
       # expression which the user entered, so care must be taken.
 
-test_counts <- function(x) {
+test_counts <- function() {
   data <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_counts.txt", sep=""))
-  return(identical(data, x))
+  return(identical(data, counts))
 }
 
-test_metadata <- function(x) {
+test_metadata <- function() {
   data <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_metadata.txt", sep=""))
-  return(identical(data, x))
+  return(identical(data, metadata))
 }
 
 test_dds <- function(x) {
   counts <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_counts.txt", sep=""))
   metadata <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_metadata.txt", sep=""))
   design <- model.matrix(~ metadata$condition)
-  dds <- DESeqDataSetFromMatrix(countData = counts, colData = metadata, design = design)
-  return(identical(dds, x))
+  dds_correct <- DESeqDataSetFromMatrix(countData = counts, colData = metadata, design = design)
+  return(identical(dds, dds_correct))
 }
