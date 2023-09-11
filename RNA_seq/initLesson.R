@@ -1,3 +1,10 @@
+# Define function to load data
+.get_course_path <- function(){
+  tryCatch(swirl:::swirl_courses_dir(),
+           error = function(c) {file.path(find.package("swirl"),"Courses")}
+  )
+}
+
 # Deattach loaded packages
 if (any(grepl("BiocManager", search()))) { detach("package:BiocManager", unload = TRUE) } 
 if (any(grepl("ComplexHeatmap", search()))) { detach("package:ComplexHeatmap", unload = TRUE) }
@@ -16,9 +23,3 @@ if (!is.element("ComplexHeatmap", installed.packages()))  { out <- capture.outpu
 # Cleanup if necessary
 if (exists("out")) { rm(out) }
 
-# Define function to load data
-.get_course_path <- function(){
-  tryCatch(swirl:::swirl_courses_dir(),
-           error = function(c) {file.path(find.package("swirl"),"Courses")}
-  )
-}
