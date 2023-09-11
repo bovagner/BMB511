@@ -80,7 +80,7 @@
   
 - Class: cmd_question
   Output: Use the table() function to count how how samples there are for each condition. Record the results in question 5.11
-  CorrectAnswer: head(metadata)
+  CorrectAnswer: table(metadata$condition)
   AnswerTests: any_of_exprs('table(metadata$condition)', 'table(metadata[,3])')
   Hint: Remember to indicate which column you want to use for making a table, e.g. table(metadata$Condition). Use the column with the combined tissue and condition labels.
   
@@ -102,7 +102,7 @@
 - Class: cmd_question
   Output: Before we start analyzing the data using DESeq2, we should check that the metadata and counts are matched. Use the identical() function to check that the order of the samples (in the column names) in the counts objects, and the order (in the first column) in the metadata is the same.
   CorrectAnswer: identical(colnames(counts), metadata$sample)
-  AnswerTests: any_of_exprs('identical(colnames(counts), metadata$sample)','identical(colnames(counts), metadata[,1])'.'identical(metadata$sample, colnames(counts))','identical(metadata[,1], colnames(counts))')
+  AnswerTests: any_of_exprs('identical(colnames(counts), metadata$sample)','identical(colnames(counts), metadata[,1])','identical(metadata$sample, colnames(counts))','identical(metadata[,1], colnames(counts))')
   Hint: The identical() function checks if X and Y are identical if you write identical(X, Y). Replace X and Y with the data you want to check.
 
 - Class: text
