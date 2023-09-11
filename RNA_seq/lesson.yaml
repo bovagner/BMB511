@@ -65,8 +65,8 @@
 
 - Class: cmd_question
   Output: Use the read.delim() function to read the RNAseq_metadata.txt file into an object called metadata.
-  CorrectAnswer: counts <- read.delim(.get_course_path())
-  AnswerTests: test_counts();expr_creates_var('metadata')
+  CorrectAnswer: metadata <- read.delim(.get_course_path())
+  AnswerTests: test_metadata();expr_creates_var('metadata')
   Hint: Use the read.delim() function to read txt files. Remember to name the object metadata.
   
 - Class: cmd_question
@@ -76,7 +76,7 @@
   Hint: When you reference objects you should not use quotes.
   
 - Class: text
-  Output: The metadata contains 3 columns: The sample name, the tissue and the condition. Here, we only analyze data from the retina tissue. 
+  Output: The metadata contains 3 columns; The sample name, the tissue and the condition. Here, we only analyze data from the retina tissue. 
   
 - Class: cmd_question
   Output: Use the table() function to count how how samples there are for each condition. Record the results in question 5.11

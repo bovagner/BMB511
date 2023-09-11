@@ -12,6 +12,19 @@
       # expression which the user entered, so care must be taken.
 
 test_counts <- function(x) {
-  data <- read.delim(paste(.get_course_path(), "/BMB511/RNA_seq/RNAseq_counts_GSE135092.txt", sep=""), sep=" ")
+  data <- read.delim(paste(.get_course_path(), "/BMB511/RNA_seq/RNAseq_counts.txt", sep=""))
   return(identical(data, x))
+}
+
+test_metadata <- function(x) {
+  data <- read.delim(paste(.get_course_path(), "/BMB511/RNA_seq/RNAseq_metadata.txt", sep=""))
+  return(identical(data, x))
+}
+
+test_dds <- function(x) {
+  counts <- read.delim(paste(.get_course_path(), "/BMB511/RNA_seq/RNAseq_counts.txt", sep=""))
+  metadata <- read.delim(paste(.get_course_path(), "/BMB511/RNA_seq/RNAseq_metadata.txt", sep=""))
+  design <- model.matrix(~ metadata$condition)
+  dds <- DESeqDataSetFromMatrix(countData = counts, colData = metadata, design = design)
+  return(identical(dds, x))
 }

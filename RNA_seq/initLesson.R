@@ -6,6 +6,7 @@ if (any(grepl("enrichR", search()))) { detach("package:enrichR", unload = TRUE) 
 if (any(grepl("DESeq2", search()))) { detach("package:DESeq2", unload = TRUE) }
 
 # Install required packages
+message("\n| Great choice! Installing the packages required for this module. It might take a few minutes. \n")
 if (!is.element("BiocManager", installed.packages())) { out <- capture.output(suppressMessages(install.packages("BiocManager", quiet = TRUE))) }
 if (!is.element("grex", installed.packages()))  { out <- capture.output(suppressMessages(install.packages("grex", quiet = TRUE))) }
 if (!is.element("enrichR", installed.packages()))  { out <- capture.output(suppressMessages(install.packages("enrichR", quiet = TRUE))) }
