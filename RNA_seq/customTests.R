@@ -22,9 +22,9 @@ test_metadata <- function() {
 }
 
 test_dds <- function(x) {
-  counts <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_counts.txt", sep=""))
-  metadata <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_metadata.txt", sep=""))
-  design <- model.matrix(~ metadata$condition)
-  dds_correct <- DESeqDataSetFromMatrix(countData = counts, colData = metadata, design = design)
+  counts_corr <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_counts.txt", sep=""))
+  metadata_corr <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_metadata.txt", sep=""))
+  design_corr <- model.matrix(~ metadata_corr$condition)
+  dds_correct <- DESeqDataSetFromMatrix(countData = counts_corr, colData = metadata_corr, design = design_corr)
   return(identical(dds, dds_correct))
 }
