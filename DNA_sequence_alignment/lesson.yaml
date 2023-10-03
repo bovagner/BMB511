@@ -142,13 +142,13 @@
   Output: Perform pairwise alignment of the reference and variant sequence using the scoring matrix and local alignment while setting the arguments gapOpening = 2 and gapExtension = 2
   CorrectAnswer: pairwiseAlignment(pattern = variant, subject = reference, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)
   AnswerTests: any_of_exprs('pairwiseAlignment(pattern = variant, subject = reference, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)','pairwiseAlignment(variant, reference, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
-  Hint: You should set the following arguments in the pairwiseAlignment() function; pattern, subject, type, substitutionMatrix, gapOpening, gapExtension.
+  Hint: You should set the following arguments in the pairwiseAlignment() function; pattern, subject, type, substitutionMatrix, gapOpening, gapExtension. Don't save the results to any object. Just run the function.
   
 - Class: cmd_question
   Output: Now try the same but using global alignment. 
   CorrectAnswer: pairwiseAlignment(pattern = variant, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)
   AnswerTests: any_of_exprs('pairwiseAlignment(pattern = variant, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)', 'pairwiseAlignment(variant, reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
-  Hint: You should change the type argument.
+  Hint: You should change the type argument. Don't save the results to any object. Just run the function.
 
 - Class: cmd_question
   Output: Based on these results, answer question 2.6 and 2.7 in the Word document. Write "done" into the console when you want to proceed. 
