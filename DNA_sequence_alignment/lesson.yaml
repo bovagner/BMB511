@@ -233,8 +233,8 @@
 - Class: mult_question
   Output: In Illumina sequencing, the base A is linked to a blue color, C to a green color, T to a red color and G to a yellow color. The machine detects a green signal. What is the correct basepair in the fragment you are sequencing?
   AnswerChoices: A;C;G;T
-  CorrectAnswer: T
-  AnswerTests: omnitest(correctVal='T')
+  CorrectAnswer: G
+  AnswerTests: omnitest(correctVal='G')
   
 - Class: mult_question
   Output: Which of the following algorithms can do local alignment of sequences?
