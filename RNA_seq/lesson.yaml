@@ -144,13 +144,13 @@
 - Class: cmd_question
   Output: Use the counts() function to get the raw counts from the dds object. Save them into a new object called raw_counts.
   CorrectAnswer: raw_counts <- counts(dds, normalized = FALSE)
-  AnswerTests: any_of_exprs('raw_counts <- counts(dds, normalized = F)','raw_counts = counts(dds, normalized = FALSE)')
+  AnswerTests: any_of_exprs('raw_counts <- counts(dds, normalized = F)','raw_counts <- counts(dds, normalized = FALSE)','raw_counts = counts(dds, normalized = FALSE)','raw_counts = counts(dds, normalized = F)')
   Hint: Remember to specify the dds object and set normalized = FALSE
   
 - Class: cmd_question
   Output: Use the counts() function to get the normalized counts from the dds object. Save them into a new object called normalized_counts.
   CorrectAnswer: normalized_counts <- counts(dds, normalized = TRUE)
-  AnswerTests: any_of_exprs('normalized_counts <- counts(dds, normalized = T)','normalized_counts = counts(dds, normalized = TRUE)')
+  AnswerTests: any_of_exprs('normalized_counts <- counts(dds, normalized = T)','normalized_counts <- counts(dds, normalized = TRUE)','normalized_counts = counts(dds, normalized = T)','normalized_counts = counts(dds, normalized = TRUE)')
   Hint: Remember to specify the dds object and set normalized = TRUE
   
 - Class: cmd_question
