@@ -88,9 +88,9 @@
   Hint: Use either the '<-' or the '=' to define a variable. For example, variable_name <- DNAString("CGAT")
   
 - Class: cmd_question
-  Output: And create another variable called variant as a DNAString object with the sequence; GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT
+  Output: And create another variable called 'variant' as a DNAString object with the sequence; GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT
   CorrectAnswer: variant <- DNAString("GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT")
-  AnswerTests: any_of_exprs('variant <- DNAString("GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT")', 'variant = DNAString("GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT")')
+  AnswerTests: any_of_exprs('variant <- DNAString("GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT")', 'variant = DNAString("GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT")', "variant <- DNAString('GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT')", "variant = DNAString('GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT')")
   Hint: Use either the '<-' or the '=' to define a variable. For example, variable_name <- DNAString("CGAT")
   
 - Class: cmd_question
@@ -247,3 +247,27 @@
   AnswerChoices: Pythagorian path;Eulerian path;Euclidean path;Newtonian path
   CorrectAnswer: Eulerian path
   AnswerTests: omnitest(correctVal='Eulerian path')
+
+- Class: mult_question
+  Output: Which of the following is NOT a step in the Needleman-Wunsch algorithm?
+  AnswerChoices: Matrix initialization;Matrix adjustment;Matrix scoring;Matrix tracing
+  CorrectAnswer: Matrix adjustment
+  AnswerTests: omnitest(correctVal='Matrix adjustment')
+
+- Class: mult_question
+  Output: What type of alignment attempts to find the best match across parts of two sequences?
+  AnswerChoices: Global alignment;General alignment;Universal alignment;Local alignment
+  CorrectAnswer: Local alignment
+  AnswerTests: omnitest(correctVal='Local alignment)
+
+- Class: mult_question
+  Output: How many lines does a single FASTA entry contain at least?
+  AnswerChoices: 1;2;3;4
+  CorrectAnswer: 2
+  AnswerTests: omnitest(correctVal='2')
+
+- Class: mult_question
+  Output: Which type of biomolecule can have the following primary sequence ACGDTAGGCTA considering only the 20 standard amino acids and 5 primary nucleobases?
+  AnswerChoices: RNA;DNA;Proteins;None of the above
+  CorrectAnswer: Proteins
+  AnswerTests: omnitest(correctVal='Proteins')
