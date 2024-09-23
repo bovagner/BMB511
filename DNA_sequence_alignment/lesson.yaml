@@ -35,21 +35,36 @@
   
 - Class: text
   Output: Updating packages can be bad. It can be bad because it might change your system by installing newer versions of packages you use and changing their functions or outputs.
-  
+
+- Class: text
+  Output: The "Biostrings" package contains functions for managing biological sequences. In this lesson, we will explore this package and various aspects of sequence alignment. Let us start by installing it.
+
 - Class: cmd_question
   Output: Install the "Biostrings" package using BiocManager. Set parameters so no packages will be updated. If you have already installed the package, write "alreadydone" into the console. If you dont set update to FALSE, R will likely get study and you need to restart the session under the 'Session' tab in the top of RStudio.
   CorrectAnswer: install("Biostrings", update = FALSE)
   AnswerTests: any_of_exprs('install("Biostrings", update = FALSE)', 'install("Biostrings", update = F)', '"alreadydone"')
   Hint: Use the install() function
 
-- Class: text
-  Output: The "Biostrings" package contains functions for aligning biological sequences. In this lesson, we will explore this package and various aspects of sequence alignment.
-
 - Class: cmd_question
   Output: Now load the "Biostrings" library 
   CorrectAnswer: library("Biostrings")
   AnswerTests: any_of_exprs('library("Biostrings")', 'library(Biostrings)')
   Hint: Use the library() function
+
+- Class: text
+  Output: The "pwalign" package contains functions for alingning biological sequences. Let us install that too
+
+- Class: cmd_question
+  Output: Install the "pwalign" package using BiocManager. Set parameters so no packages will be updated. If you have already installed the package, write "alreadydone" into the console. If you dont set update to FALSE, R will likely get study and you need to restart the session under the 'Session' tab in the top of RStudio.
+  CorrectAnswer: install("pwalign", update = FALSE)
+  AnswerTests: any_of_exprs('install("pwalign", update = FALSE)', 'install("pwalign", update = F)', '"alreadydone"')
+  Hint: Use the install() function
+
+- Class: cmd_question
+  Output: Now load the "pwalign" library 
+  CorrectAnswer: library("pwalign")
+  AnswerTests: any_of_exprs('library("pwalign")', 'library(pwalign)')
+  Hint: Use the library() function  
   
 - Class: text
   Output: First, we need to define the sequences that we want to compare. The "Biostrings" library has a function called DNAString() for that purpose.
@@ -106,7 +121,7 @@
   Hint: Enter the name of the variable into the console to see its contents.
   
 - Class: cmd_question
-  Output: To compare the reference and the variant sequences, we need to define a substitution matrix. The 'Biostrings' packages has a function called nucleotideSubstitutionMatrix() for that purpose. Look at the help for the function. 
+  Output: To compare the reference and the variant sequences, we need to define a substitution matrix. The 'pwalign' packages has a function called nucleotideSubstitutionMatrix() for that purpose. Look at the help for the function. 
   CorrectAnswer: ?nucleotideSubstitutionMatrix
   AnswerTests: any_of_exprs('?nucleotideSubstitutionMatrix', 'help(nucleotideSubstitutionMatrix)')
   Hint: You can read help using either ? or the help() function.
@@ -124,7 +139,7 @@
   Hint: Enter the name of the variable into the console to see its contents.
   
 - Class: cmd_question
-  Output: Now, we have everything we need to compare sequences. The 'Biostrings' packages has a function called pairwiseAlignment() for that purpose. Look at the help for the function. 
+  Output: Now, we have everything we need to compare sequences. The 'pwalign' packages has a function called pairwiseAlignment() for that purpose. Look at the help for the function. 
   CorrectAnswer: ?pairwiseAlignment
   AnswerTests: any_of_exprs('?pairwiseAlignment', 'help(pairwiseAlignment)')
   Hint: You can read help using either ? or the help() function.
@@ -172,7 +187,7 @@
   Hint: You should set the following arguments in the pairwiseAlignment() function; pattern, subject, type, substitutionMatrix, gapOpening, gapExtension. Remember to store the result in an object called alignment
 
 - Class: cmd_question
-  Output: Inspect the aligned sequences of the patterns (the variants) using the alignedPattern() function from the "Biostrings"" package.
+  Output: Inspect the aligned sequences of the patterns (the variants) using the alignedPattern() function from the "pwalign"" package.
   CorrectAnswer: alignedPattern(alignment)
   AnswerTests: any_of_exprs('alignedPattern(alignment)')
   Hint: You can look at the help for the alignedPattern() function.
