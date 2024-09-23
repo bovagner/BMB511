@@ -273,7 +273,7 @@
   Output: What type of alignment attempts to find the best match across parts of two sequences?
   AnswerChoices: Global alignment;General alignment;Universal alignment;Local alignment
   CorrectAnswer: Local alignment
-  AnswerTests: omnitest(correctVal='Local alignment)
+  AnswerTests: omnitest(correctVal='Local alignment')
 
 - Class: mult_question
   Output: How many lines does a single FASTA entry contain at least?
