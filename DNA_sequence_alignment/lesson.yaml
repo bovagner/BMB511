@@ -99,17 +99,17 @@
 - Class: cmd_question
   Output: Now lets define a variable called reference as a DNAString object with the sequence;  GTCCATCTGTAGTAGATCGTCCATGACTGCGATACAAGTTACCTT
   CorrectAnswer: reference <- DNAString("GTCCATCTGTAGTAGATCGTCCATGACTGCGATACAAGTTACCTT")
-  AnswerTests: any_of_exprs('reference <- DNAString("GTCCATCTGTAGTAGATCGTCCATGACTGCGATACAAGTTACCTT")', 'reference = DNAString("GTCCATCTGTAGTAGATCGTCCATGACTGCGATACAAGTTACCTT")')
+  AnswerTests: calculates_same_value('DNAString("GTCCATCTGTAGTAGATCGTCCATGACTGCGATACAAGTTACCTT")');expr_creates_var('reference')
   Hint: Use either the '<-' or the '=' to define a variable. For example, variable_name <- DNAString("CGAT")
   
 - Class: cmd_question
   Output: And create another variable called 'variant' as a DNAString object with the sequence; GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT
   CorrectAnswer: variant <- DNAString("GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT")
-  AnswerTests: any_of_exprs('variant <- DNAString("GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT")', 'variant = DNAString("GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT")', "variant <- DNAString('GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT')", "variant = DNAString('GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT')")
+  AnswerTests: calculates_same_value('DNAString("GTCCATGACACTGGTCGTCCATGGACTGCGATACAAGTTACCTT")');expr_creates_var('variant')
   Hint: Use either the '<-' or the '=' to define a variable. For example, variable_name <- DNAString("CGAT")
   
 - Class: cmd_question
-  Output: Inspect the reference sequence
+  Output: Inspect the reference sequence. You can inspect the content of a variable by writing its name in the console. This will print its contents. 
   CorrectAnswer: reference
   AnswerTests: any_of_exprs('reference')
   Hint: Enter the name of the variable into the console to see its contents.
@@ -129,7 +129,7 @@
 - Class: cmd_question
   Output: Create a substitution matrix with a match score of 1 and mismatch penalty of -1 allowing only the base alphabet. Store it in an object called scoring.
   CorrectAnswer: scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = TRUE)
-  AnswerTests: any_of_exprs('scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = TRUE)', 'scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = T)', 'scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = T, type="DNA")', 'scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = TRUE, type="DNA")')
+  AnswerTests: calculates_same_value('nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = TRUE)');expr_creates_var('scoring')
   Hint: Use either the '<-' or the '=' to define a variable. For example, scoring <- nucleotideSubstitutionMatrix(match = 1). Consider the baseOnly argument.
 
 - Class: cmd_question
@@ -156,13 +156,13 @@
 - Class: cmd_question
   Output: Perform pairwise alignment of the reference and variant sequence using the scoring matrix and local alignment while setting the arguments gapOpening = 2 and gapExtension = 2
   CorrectAnswer: pairwiseAlignment(pattern = variant, subject = reference, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)
-  AnswerTests: any_of_exprs('pairwiseAlignment(pattern = variant, subject = reference, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)','pairwiseAlignment(variant, reference, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
+  AnswerTests: calculates_same_value('pairwiseAlignment(pattern = variant, subject = reference, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
   Hint: You should set the following arguments in the pairwiseAlignment() function; pattern, subject, type, substitutionMatrix, gapOpening, gapExtension. Don't save the results to any object. Just run the function.
   
 - Class: cmd_question
   Output: Now try the same but using global alignment. 
   CorrectAnswer: pairwiseAlignment(pattern = variant, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)
-  AnswerTests: any_of_exprs('pairwiseAlignment(pattern = variant, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)', 'pairwiseAlignment(variant, reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
+  AnswerTests: calculates_same_value('pairwiseAlignment(pattern = variant, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
   Hint: You should change the type argument. Don't save the results to any object. Just run the function.
 
 - Class: cmd_question
@@ -177,13 +177,13 @@
 - Class: cmd_question
   Output: The full set of sequences you generated are stored in an object called all_variants. We can use the function DNAStringSet() to create an object that holds several DNA sequences. Create a DNAStringSet called variants containing all of the sequences.
   CorrectAnswer: variants <- DNAStringSet(all_variants)
-  AnswerTests: any_of_exprs('variants <- DNAStringSet(all_variants)')
+  AnswerTests: calculates_same_value('DNAStringSet(all_variants)');expr_creates_var('variants')
   Hint: Use either the '<-' or the '=' to define a variable. For example, variants <- DNAStringSet()
   
 - Class: cmd_question
   Output: Now perform alignment between all the new variants and the reference using global alignment, the substitutionMatrix as well as gapOpening = 2 and gapExtension = 2 and save the results in an object called alignment
   CorrectAnswer: alignment <- pairwiseAlignment(pattern = variants, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)
-  AnswerTests: any_of_exprs('alignment <- pairwiseAlignment(pattern = variants, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)', 'alignment = pairwiseAlignment(pattern = variants, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
+  AnswerTests: calculates_same_value('pairwiseAlignment(pattern = variants, subject = reference, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)');expr_creates_var('alignment')
   Hint: You should set the following arguments in the pairwiseAlignment() function; pattern, subject, type, substitutionMatrix, gapOpening, gapExtension. Remember to store the result in an object called alignment
 
 - Class: cmd_question
@@ -204,19 +204,19 @@
 - Class: cmd_question
   Output: Lets define a variable called enhancer as a DNAString object with the sequence of the enhancer which is GTCCTAGATACTAGAGTCGTCTCCTCTGGTCGTCTAGCGAGCGGTTCAAGTTACCTTGATAGACACAGATACAGTTTGAGATACATAGACACATAGAGTAGAGACACATGA
   CorrectAnswer: enhancer <- DNAString("GTCCTAGATACTAGAGTCGTCTCCTCTGGTCGTCTAGCGAGCGGTTCAAGTTACCTTGATAGACACAGATACAGTTTGAGATACATAGACACATAGAGTAGAGACACATGA")
-  AnswerTests: any_of_exprs('enhancer <- DNAString("GTCCTAGATACTAGAGTCGTCTCCTCTGGTCGTCTAGCGAGCGGTTCAAGTTACCTTGATAGACACAGATACAGTTTGAGATACATAGACACATAGAGTAGAGACACATGA")', 'enhancer = DNAString("GTCCTAGATACTAGAGTCGTCTCCTCTGGTCGTCTAGCGAGCGGTTCAAGTTACCTTGATAGACACAGATACAGTTTGAGATACATAGACACATAGAGTAGAGACACATGA")')
+  AnswerTests: calculates_same_value('DNAString("GTCCTAGATACTAGAGTCGTCTCCTCTGGTCGTCTAGCGAGCGGTTCAAGTTACCTTGATAGACACAGATACAGTTTGAGATACATAGACACATAGAGTAGAGACACATGA")');expr_creates_var('enhancer')
   Hint: Use either the '<-' or the '=' to define a variable. For example, variable_name <- DNAString("CGAT")
 
 - Class: cmd_question
   Output: Perform pairwise alignment of the enhancer and variant sequence using the scoring matrix and local alignment while setting the arguments gapOpening = 2 and gapExtension = 2
   CorrectAnswer: pairwiseAlignment(pattern = variant, subject = enhancer, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)
-  AnswerTests: any_of_exprs('pairwiseAlignment(pattern = variant, subject = enhancer, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
+  AnswerTests: calculates_same_value('pairwiseAlignment(pattern = variant, subject = enhancer, type = "local", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
   Hint: Remember to use variant for the pattern, not variants! You should set the following arguments in the pairwiseAlignment() function; pattern, subject, type, substitutionMatrix, gapOpening, gapExtension. 
   
 - Class: cmd_question
   Output: Now try the same but using global alignment. 
   CorrectAnswer: pairwiseAlignment(pattern = variant, subject = enhancer, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)
-  AnswerTests: any_of_exprs('pairwiseAlignment(pattern = variant, subject = enhancer, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
+  AnswerTests: calculates_same_value('pairwiseAlignment(pattern = variant, subject = enhancer, type = "global", substitutionMatrix = scoring, gapOpening = 2, gapExtension = 2)')
   Hint: You should change the type argument.
   
 - Class: cmd_question
