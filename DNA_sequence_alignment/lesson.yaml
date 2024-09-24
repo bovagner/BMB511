@@ -40,7 +40,7 @@
   Output: The "Biostrings" package contains functions for managing biological sequences. In this lesson, we will explore this package and various aspects of sequence alignment. Let us start by installing it.
 
 - Class: cmd_question
-  Output: Install the "Biostrings" package using BiocManager. Set parameters so no packages will be updated. If you have already installed the package, write "alreadydone" into the console. If you dont set update to FALSE, R will likely get study and you need to restart the session under the 'Session' tab in the top of RStudio.
+  Output: Install the "Biostrings" package using BiocManager. Set parameters so no packages will be updated. If you have already installed the package, write "alreadydone" into the console. If you dont set update to FALSE, R will likely get stuck and you need to restart the session under the 'Session' tab in the top of RStudio.
   CorrectAnswer: install("Biostrings", update = FALSE)
   AnswerTests: any_of_exprs('install("Biostrings", update = FALSE)', 'install("Biostrings", update = F)', '"alreadydone"')
   Hint: Use the install() function
@@ -127,7 +127,7 @@
   Hint: You can read help using either ? or the help() function.
   
 - Class: cmd_question
-  Output: Create a substitution matrix with a match score of 1 and mismatch penalty of -1 allowing only the base alphabet Store it in an object called scoring.
+  Output: Create a substitution matrix with a match score of 1 and mismatch penalty of -1 allowing only the base alphabet. Store it in an object called scoring.
   CorrectAnswer: scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = TRUE)
   AnswerTests: any_of_exprs('scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = TRUE)', 'scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = T)', 'scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = T, type="DNA")', 'scoring <- nucleotideSubstitutionMatrix(match = 1, mismatch = -1, baseOnly = TRUE, type="DNA")')
   Hint: Use either the '<-' or the '=' to define a variable. For example, scoring <- nucleotideSubstitutionMatrix(match = 1). Consider the baseOnly argument.
@@ -145,7 +145,7 @@
   Hint: You can read help using either ? or the help() function.
 
 - Class: cmd_question
-  Output: What is the name of the argument in the pairwiseAlignment() function determines which type of alignment is used?
+  Output: What is the name of the argument in the pairwiseAlignment() function that determines which type of alignment is used?
   CorrectAnswer: '"type"'
   AnswerTests: any_of_exprs('"type"')
   Hint: Write "type" into the console.
@@ -172,7 +172,7 @@
   Hint: Just write "done"
 
 - Class: text
-  Output: The variant you analyzed about was only the very first you succesfully generated. Once you got the method working, you created several variants that could bind the transcription factor, and you have sequenced all of them.
+  Output: The variant you analyzed above was only the very first you succesfully generated. Once you got the method working, you created several variants that could bind the transcription factor, and you have sequenced all of them.
 
 - Class: cmd_question
   Output: The full set of sequences you generated are stored in an object called all_variants. We can use the function DNAStringSet() to create an object that holds several DNA sequences. Create a DNAStringSet called variants containing all of the sequences.
@@ -199,7 +199,7 @@
   Hint: Just write "done"
 
 - Class: text
-  Output: You showed you results to a senior researcher in your group, who got very excited! She said that the variant sequences look a lot like a part of the sequence of an enhancer in the species she studies, which she knows also binds the transcription factor. She asked you if you could verify that hypothesis.
+  Output: You showed your results to a senior researcher in your group, who got very excited! She said that the variant sequences look a lot like a part of the sequence of an enhancer in the species she studies, which she knows also binds the transcription factor. She asked you if you could verify that hypothesis.
 
 - Class: cmd_question
   Output: Lets define a variable called enhancer as a DNAString object with the sequence of the enhancer which is GTCCTAGATACTAGAGTCGTCTCCTCTGGTCGTCTAGCGAGCGGTTCAAGTTACCTTGATAGACACAGATACAGTTTGAGATACATAGACACATAGAGTAGAGACACATGA
