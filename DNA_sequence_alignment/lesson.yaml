@@ -28,7 +28,7 @@
   Output: The "BiocManager" libary contains a function called install(), which allows you to install packages from Bioconductor.
   
 - Class: cmd_question
-  Output: Read the help for the install() function from "BiocManager" package. Pay special attention to the 'ask' and 'update' arguments. 
+  Output: You can open the help page for a command by typing a ? in front of the command or by using the help() function. Open and read the help for the install() function from "BiocManager" package. Pay special attention to the 'ask' and 'update' arguments. 
   CorrectAnswer: ?install
   AnswerTests: any_of_exprs('?install', 'help(install)')
   Hint: You can read help using either ? or the help() function.
@@ -166,7 +166,7 @@
   Hint: You should change the type argument. Don't save the results to any object. Just run the function.
 
 - Class: cmd_question
-  Output: Based on these results, answer question 2.6 and 2.7 in the Word document. Write "done" into the console when you want to proceed. 
+  Output: Based on these results, answer question 2.6 and 2.7 in the Word document. Remember that the transcription factor only binds the variant sequence and not the reference sequence. Write "done" into the console when you want to proceed. 
   CorrectAnswer: '"done"'
   AnswerTests: any_of_exprs('"done"')
   Hint: Just write "done"
