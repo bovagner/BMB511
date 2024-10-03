@@ -96,7 +96,7 @@
 - Class: cmd_question
   Output: Before we start analyzing the data using DESeq2, we should check that the metadata and counts are matched. Use the identical() function to check that the order of the samples (in the column names) in the counts objects, and the order (in the first column) in the metadata is the same.
   CorrectAnswer: identical(colnames(counts), metadata$sample)
-  AnswerTests: any_of_exprs('identical(colnames(counts), metadata$sample)','identical(colnames(counts), metadata[,1])','identical(metadata$sample, colnames(counts))','identical(metadata[,1], colnames(counts))')
+  AnswerTests: calculates_same_value('identical(colnames(counts), metadata$sample)')
   Hint: The identical() function checks if X and Y are identical if you write identical(X, Y). Replace X and Y with the data you want to check.
 
 - Class: text
@@ -108,7 +108,7 @@
 - Class: cmd_question
   Output: Create an object called design containing a design matrix using the condition column from the metadata as the independent variable. Use the model.matrix() function.
   CorrectAnswer: design <- model.matrix(~ metadata$condition)
-  AnswerTests: any_of_exprs('design <- model.matrix(~ metadata$condition)','design = model.matrix(~ metadata$condition)','design <- model.matrix(~ condition, data = metadata)','design = model.matrix(~ condition, data = metadata)')
+  AnswerTests: calculates_same_value('model.matrix(~ metadata$condition)');expr_creates_var('design')
   Hint: Remember to create an object called design with the results. Nothing goes to the left of the tilde, while on the right you should include in the independent variable.
   
 - Class: cmd_question
@@ -123,7 +123,7 @@
 - Class: cmd_question
   Output: Create a DESeq object called dds using the DESeqDataSetFromMatrix() function specifying the countData, colData and design.
   CorrectAnswer: dds <- DESeqDataSetFromMatrix(countData = counts, colData = metadata, design = design)
-  AnswerTests: test_dds()
+  AnswerTests: calculates_same_value('DESeqDataSetFromMatrix(countData = counts, colData = metadata, design = design)');expr_creates_var('dds')
   Hint: Remember to specifiy all three objects and in the right order. Do not specify anything else.
 
 - Class: text
@@ -132,7 +132,7 @@
 - Class: cmd_question
   Output: Use the DESeq() function on the dds object and create a new object called dds. 
   CorrectAnswer: dds <- DESeq(dds)
-  AnswerTests: any_of_exprs('dds <- DESeq(dds)','dds = DESeq(dds)')
+  AnswerTests: calculates_same_value('DESeq(dds)');expr_creates_var('dds')
   Hint: The new object should also be named dds. It will overwrite the old object.
 
 - Class: text
@@ -144,19 +144,19 @@
 - Class: cmd_question
   Output: Use the counts() function to get the raw counts from the dds object. Save them into a new object called raw_counts.
   CorrectAnswer: raw_counts <- counts(dds, normalized = FALSE)
-  AnswerTests: any_of_exprs('raw_counts <- counts(dds, normalized = F)','raw_counts <- counts(dds, normalized = FALSE)','raw_counts = counts(dds, normalized = FALSE)','raw_counts = counts(dds, normalized = F)')
+  AnswerTests: calculates_same_value('counts(dds, normalized = FALSE)');expr_creates_var('raw_counts')
   Hint: Remember to specify the dds object and set normalized = FALSE
   
 - Class: cmd_question
   Output: Use the counts() function to get the normalized counts from the dds object. Save them into a new object called normalized_counts.
   CorrectAnswer: normalized_counts <- counts(dds, normalized = TRUE)
-  AnswerTests: any_of_exprs('normalized_counts <- counts(dds, normalized = T)','normalized_counts <- counts(dds, normalized = TRUE)','normalized_counts = counts(dds, normalized = T)','normalized_counts = counts(dds, normalized = TRUE)')
+  AnswerTests: calculates_same_value('counts(dds, normalized = TRUE)');expr_creates_var('normalized_counts')
   Hint: Remember to specify the dds object and set normalized = TRUE
   
 - Class: cmd_question
   Output: Let's look at the first 5 genes for the raw counts using squared brackets, as such raw_counts[1:5,]
   CorrectAnswer: raw_counts[1:5,]
-  AnswerTests: any_of_exprs('raw_counts[1:5,]')
+  AnswerTests: calculates_same_value('raw_counts[1:5,]')
   Hint: Writing raw_counts[1:5,] into the console
   
 - Class: cmd_question
@@ -186,7 +186,7 @@
 - Class: cmd_question
   Output: Run the varianceStabilizingTransformation() on your DESeq object and create an object called vst seting the blind argument appropriately for quality assurance. 
   CorrectAnswer: vst <- varianceStabilizingTransformation(dds, blind = TRUE)
-  AnswerTests: any_of_exprs('vst <- varianceStabilizingTransformation(dds, blind = TRUE)','vst = varianceStabilizingTransformation(dds, blind = TRUE)','vst <- varianceStabilizingTransformation(dds, blind = T)','vst = varianceStabilizingTransformation(dds, blind = T)')
+  AnswerTests: calculates_same_value('varianceStabilizingTransformation(dds, blind = TRUE)');expr_creates_var('vst')
   Hint: The object you generate should be called vst and blind should be set to TRUE
   
 - Class: cmd_question
@@ -213,7 +213,7 @@
 - Class: cmd_question
   Output: Run the results() function on the dds object and save the output to an object named res
   CorrectAnswer: res <- results(dds) 
-  AnswerTests: any_of_exprs('res <- results(dds) ', 'res = results(dds)')
+  AnswerTests: calculates_same_value('results(dds)');expr_creates_var('res')
   Hint: The object you generate should be called res and no arguments other than specifying dds should be set.
   
 - Class: text
@@ -233,14 +233,14 @@
   
 - Class: cmd_question
   Output: Create an object called down using the follow code; down <- subset(res, padj <= 0.05 & res$log2FoldChange < 0)
-  CorrectAnswer: down <- subset(res, padj <= 0.05 & res$log2FoldChange < 0)
-  AnswerTests: any_of_exprs('down <- subset(res, padj <= 0.05 & res$log2FoldChange < 0)')
+  CorrectAnswer: down <- 
+  AnswerTests: calculates_same_value('subset(res, padj <= 0.05 & res$log2FoldChange < 0)');expr_creates_var('down')
   Hint: Write the code from the help.
   
 - Class: cmd_question
   Output: Now change one parameter in the code above and create an object called up which holds upregulated genes.
   CorrectAnswer: up <- subset(res, padj <= 0.05 & res$log2FoldChange > 0)
-  AnswerTests: any_of_exprs('up <- subset(res, padj <= 0.05 & res$log2FoldChange > 0)','up <- subset(res, padj <= 0.05 & res$log2FoldChange >= 0)','up = subset(res, padj <= 0.05 & res$log2FoldChange > 0)','up = subset(res, padj <= 0.05 & res$log2FoldChange >= 0)')
+  AnswerTests: calculates_same_value('subset(res, padj <= 0.05 & res$log2FoldChange > 0)');expr_creates_var('up')
   Hint: The upregulated genes will have a positive log2FoldChange instead of a negative log2FoldChange
   
 - Class: cmd_question
@@ -255,13 +255,13 @@
 - Class: cmd_question
   Output: Overwrite the down object to contain only the rownames from the down object. Use the rownames() function
   CorrectAnswer: down <- rownames(down)
-  AnswerTests: any_of_exprs('down <- rownames(down)', 'down = rownames(down)')
+  AnswerTests: calculates_same_value('rownames(down)');expr_creates_var('down')
   Hint: Write the following code; down <- rownames(down)
 
 - Class: cmd_question
   Output: Let us do the same for the up object.
   CorrectAnswer: up <- rownames(up)
-  AnswerTests: any_of_exprs('up <- rownames(up)', 'up = rownames(up)')
+  AnswerTests: calculates_same_value('rownames(up)');expr_creates_var('up')
   Hint: Look at how it was done for the downregulated genes and adjust the code.
 
 - Class: text
@@ -276,13 +276,13 @@
 - Class: cmd_question
   Output: Convert the upregulated genes to HGNC Symbols writing the code; up <- grex(up)$hgnc_symbol 
   CorrectAnswer: up <- grex(up)$hgnc_symbol 
-  AnswerTests: any_of_exprs('up <- grex(up)$hgnc_symbol','up = grex(up)$hgnc_symbol')
+  AnswerTests: calculates_same_value('grex(up)$hgnc_symbol ');expr_creates_var('up')
   Hint: Write the following code; up <- grex(up)$hgnc_symbol
   
 - Class: cmd_question
   Output: Now convert the downregulated genes as well where you overwrite the down object with the results.
   CorrectAnswer: down <- grex(down)$hgnc_symbol 
-  AnswerTests: any_of_exprs('down <- grex(down)$hgnc_symbol', 'down <- grex(down)$hgnc_symbol')
+  AnswerTests: calculates_same_value('grex(down)$hgnc_symbol');expr_creates_var('down')
   Hint: Look at how it was done for the upregulated genes and adjust the code.
   
 - Class: cmd_question
@@ -297,13 +297,13 @@
 - Class: cmd_question
   Output: Perform pathway enrichment using the newest WikiPathways for humans and the upregulated genes, save the results in an object called up_pathways
   CorrectAnswer: up_pathways <- enrichr(up, databases = "WikiPathway_2021_Human")
-  AnswerTests: any_of_exprs('up_pathways <- enrichr(genes = up, databases = "WikiPathway_2021_Human")', 'up_pathways = enrichr(genes = up, databases = "WikiPathway_2021_Human")', 'up_pathways <- enrichr(up, databases = "WikiPathway_2021_Human")', 'up_pathways = enrichr(up, databases = "WikiPathway_2021_Human")', 'up_pathways <- enrichr(genes = up, "WikiPathway_2021_Human")', 'up_pathways = enrichr(genes = up, "WikiPathway_2021_Human")', 'up_pathways <- enrichr(up, "WikiPathway_2021_Human")', 'up_pathways = enrichr(up, "WikiPathway_2021_Human")')
+  AnswerTests: calculates_same_value('enrichr(up, databases = "WikiPathway_2021_Human")');expr_creates_var('up_pathways')
   Hint: You need to set two arguments for the enrichr function. Genes which should be the upregulated genes and databases which should be the newest WikiPathways database for humans in quotes.
 
 - Class: cmd_question
   Output: Do the same for downregulated genes and save the results in an object called down_pathways
   CorrectAnswer: down_pathways <- enrichr(down, databases = "WikiPathway_2021_Human")
-  AnswerTests: any_of_exprs('down_pathways <- enrichr(genes = down, databases = "WikiPathway_2021_Human")', 'down_pathways = enrichr(genes = down, databases = "WikiPathway_2021_Human")', 'down_pathways <- enrichr(down, databases = "WikiPathway_2021_Human")', 'down_pathways = enrichr(down, databases = "WikiPathway_2021_Human")', 'down_pathways <- enrichr(genes = down, "WikiPathway_2021_Human")', 'down_pathways = enrichr(genes = down, "WikiPathway_2021_Human")', 'down_pathways <- enrichr(down, "WikiPathway_2021_Human")', 'down_pathways = enrichr(down, "WikiPathway_2021_Human")')
+  AnswerTests: calculates_same_value('enrichr(down, databases = "WikiPathway_2021_Human")');expr_creates_var('down_pathways')
   Hint: You need to set two arguments for the enrichr function. Genes which should be the upregulated genes and databases which should be the newest WikiPathways database for humans in quotes.
 
 - Class: cmd_question
