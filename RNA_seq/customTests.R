@@ -13,7 +13,7 @@
 
 test_counts <- function() {
   data <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_counts.txt", sep=""))
-  return(identical(data, counts))
+  return(identical(data, count))
 }
 
 test_metadata <- function() {

@@ -52,8 +52,8 @@
   Output: Go to itsLearning and download the RNAseq_counts.txt file and the RNAseq_metadata.txt file. If you are using UCloud, upload the files to your directory.
   
 - Class: cmd_question
-  Output: Use the read.delim() function to read the RNAseq_counts.txt file into an object called counts.
-  CorrectAnswer: counts <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_counts.txt", sep=""))
+  Output: Use the read.delim() function to read the RNAseq_counts.txt file into an object called count.
+  CorrectAnswer: count <- read.delim(paste(swirl:::swirl_courses_dir(), "/BMB511/RNA_seq/RNAseq_counts.txt", sep=""))
   AnswerTests: test_counts()
   Hint: Use the read.delim() function to read txt files. Remember to name the object counts.
 
@@ -79,24 +79,24 @@
   Hint: Remember to indicate which column you want to use for making a table, e.g. table(metadata$Condition). Use the column with the combined tissue and condition labels.
   
 - Class: cmd_question
-  Output: Next let us check out the counts. Use the head() function to show the first few entries of the counts object.
-  CorrectAnswer: head(counts)
-  AnswerTests: any_of_exprs('head(counts)')
+  Output: Next let us check out the counts. Use the head() function to show the first few entries of the count object.
+  CorrectAnswer: head(count)
+  AnswerTests: any_of_exprs('head(count)')
   Hint: When you reference objects you should not use quotes.
   
 - Class: text
-  Output: The column names in the counts object is the sample names and the row names are the gene identifiers. Use Google to look up the name of the first gene and answer question 5.12.
+  Output: The column names in the count object is the sample names and the row names are the gene identifiers. Use Google to look up the name of the first gene and answer question 5.12.
   
 - Class: cmd_question
-  Output: We can use the dim() function to get the dimensions of an object. Get the dimensions of the counts object and answer question 5.13.
-  CorrectAnswer: dim(counts)
-  AnswerTests: any_of_exprs('dim(counts)')
+  Output: We can use the dim() function to get the dimensions of an object. Get the dimensions of the count object and answer question 5.13.
+  CorrectAnswer: dim(count)
+  AnswerTests: any_of_exprs('dim(count)')
   Hint: When you reference objects you should not use quotes.
   
 - Class: cmd_question
-  Output: Before we start analyzing the data using DESeq2, we should check that the metadata and counts are matched. Use the identical() function to check that the order of the samples (in the column names) in the counts objects, and the order (in the first column) in the metadata is the same.
-  CorrectAnswer: identical(colnames(counts), metadata$sample)
-  AnswerTests: calculates_same_value('identical(colnames(counts), metadata$sample)')
+  Output: Before we start analyzing the data using DESeq2, we should check that the metadata and count are matched. Use the identical() function to check that the order of the samples (in the column names) in the count objects, and the order (in the first column) in the metadata is the same.
+  CorrectAnswer: identical(colnames(count), metadata$sample)
+  AnswerTests: calculates_same_value('identical(colnames(count), metadata$sample)')
   Hint: The identical() function checks if X and Y are identical if you write identical(X, Y). Replace X and Y with the data you want to check.
 
 - Class: text
@@ -122,15 +122,15 @@
 
 - Class: cmd_question
   Output: Create a DESeq object called dds using the DESeqDataSetFromMatrix() function specifying the countData, colData and design.
-  CorrectAnswer: dds <- DESeqDataSetFromMatrix(countData = counts, colData = metadata, design = design)
-  AnswerTests: calculates_same_value('DESeqDataSetFromMatrix(countData = counts, colData = metadata, design = design)');expr_creates_var('dds')
+  CorrectAnswer: dds <- DESeqDataSetFromMatrix(countData = count, colData = metadata, design = design)
+  AnswerTests: calculates_same_value('DESeqDataSetFromMatrix(countData = count, colData = metadata, design = design)');expr_creates_var('dds')
   Hint: Remember to specifiy all three objects and in the right order. Do not specify anything else.
 
 - Class: text
-  Output: Now we have a DESeq object, we can use DESeq to normalize the data and fit the negative binomial distribution to each gene.gene
+  Output: Now we have a DESeq object, we can use DESeq to normalize the data and fit the negative binomial distribution to each gene.
   
 - Class: cmd_question
-  Output: Use the DESeq() function on the dds object and create a new object called dds. 
+  Output: Use the DESeq() function on the dds object and create a overwrite the object called dds. 
   CorrectAnswer: dds <- DESeq(dds)
   AnswerTests: calculates_same_value('DESeq(dds)');expr_creates_var('dds')
   Hint: The new object should also be named dds. It will overwrite the old object.
