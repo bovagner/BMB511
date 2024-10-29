@@ -49,7 +49,7 @@
   Output: Find the paper online and look into the STAR Methods section, and answer questions 5.7 to 5.10
   
 - Class: text
-  Output: Go to itsLearning and download the RNAseq_counts.txt file and the RNAseq_metadata.txt file. If you are using UCloud, upload the files to your directory.
+  Output: Go to itsLearning and download the RNAseq_counts.txt file and the RNAseq_metadata.txt file. If you are using UCloud, upload the files to your directory using the Files pane (CTRL+5).
   
 - Class: cmd_question
   Output: Use the read.delim() function to read the RNAseq_counts.txt file into an object called count.
@@ -73,7 +73,7 @@
   Output: The metadata contains 3 columns; The sample name, the tissue and the condition. Here, we only analyze data from the retina tissue. 
   
 - Class: cmd_question
-  Output: Use the table() function to count how how samples there are for each condition. Record the results in question 5.11
+  Output: Use the table() function to count how many samples there are for each condition. Record the results in question 5.11
   CorrectAnswer: table(metadata$condition)
   AnswerTests: any_of_exprs('table(metadata$condition)', 'table(metadata[,3])')
   Hint: Remember to indicate which column you want to use for making a table, e.g. table(metadata$Condition). Use the column with the combined tissue and condition labels.
@@ -100,7 +100,7 @@
   Hint: The identical() function checks if X and Y are identical if you write identical(X, Y). Replace X and Y with the data you want to check.
 
 - Class: text
-  Output: The first step in analyzing RNA-seq is to create a design matrix. This uses a formula, which in R is created using the ~ sign, for example  ~ a which create a formula with a independent variable a. 
+  Output: The first step in analyzing RNA-seq is to create a design matrix. This uses a formula, which in R is created using the ~ sign, for example  ~ x which create a formula with an independent variable x. 
 
 - Class: text
   Output: To create a design matrix, we use the function model.matrix() and specify a formula.
@@ -130,7 +130,7 @@
   Output: Now we have a DESeq object, we can use DESeq to normalize the data and fit the negative binomial distribution to each gene.
   
 - Class: cmd_question
-  Output: Use the DESeq() function on the dds object and create a overwrite the object called dds. 
+  Output: Use the DESeq() function on the dds object and overwrite the object called dds. 
   CorrectAnswer: dds <- DESeq(dds)
   AnswerTests: calculates_same_value('DESeq(dds)');expr_creates_var('dds')
   Hint: The new object should also be named dds. It will overwrite the old object.
@@ -250,7 +250,7 @@
   Hint: Write head(X) where X is  the object you want to inspect.
   
 - Class: text
-  Output: The gene identifies are stored in the rownames in the object. Lets extract them!
+  Output: The gene identifiers are stored in the rownames in the object. Lets extract them!
   
 - Class: cmd_question
   Output: Overwrite the down object to contain only the rownames from the down object. Use the rownames() function
